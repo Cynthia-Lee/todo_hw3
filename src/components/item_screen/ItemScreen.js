@@ -33,22 +33,12 @@ class ItemScreen extends Component {
     editItem = () => {
         const { item } = this.props;
 
-        var currentDate = new Date();
-        var timestamp = currentDate.getTime();
-        // update the store
-        const fireStore = getFirestore();
-
         var itemList = this.props.todoList.items;
         var currItem = itemList[item.id];
         currItem.description = this.state.description;
         currItem.assigned_to = this.state.assigned_to;
         currItem.due_date = this.state.due_date;
         currItem.completed = this.state.completed;
-
-        fireStore.collection('todoLists').doc(this.props.todoList.id).update({
-            items: itemList,
-            time: timestamp
-        })
 
         this.props.history.goBack();
     }

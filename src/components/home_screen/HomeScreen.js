@@ -15,7 +15,6 @@ class HomeScreen extends Component {
         // new Date().getTime();
         var currentDate = new Date();
         var timestamp = currentDate.getTime();
-        // console.log(timestamp);
 
         fireStore.collection('todoLists').add({
             name: "",

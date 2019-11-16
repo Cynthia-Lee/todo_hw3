@@ -20,12 +20,14 @@ class DatabaseTester extends React.Component {
 
     handleReset = () => {
         const fireStore = getFirestore();
+        var currentDate = new Date();
+        var timestamp = currentDate.getTime(); // timestamp for most recent list
         todoJson.todoLists.forEach(todoListJson => {
             fireStore.collection('todoLists').add({
                     name: todoListJson.name,
                     owner: todoListJson.owner,
                     items: todoListJson.items,
-                    time: 0
+                    time: timestamp
                 }).then(() => {
                     console.log("DATABASE RESET");
                 }).catch((err) => {

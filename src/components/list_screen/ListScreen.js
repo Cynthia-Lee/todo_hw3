@@ -20,17 +20,25 @@ class ListScreen extends Component {
             ...state,
             [target.id]: target.value,
         }));
-        // console.log(target.value);
-        var currentDate = new Date();
-        var timestamp = currentDate.getTime();
         // update the store
         const fireStore = getFirestore();
         fireStore.collection('todoLists').doc(this.props.todoList.id).update({
             [target.id]: target.value,
-            time: timestamp
         });
-        // update the time
-        // new Date().getTime();
+    }
+
+    addItem = () => {
+        /*
+        const fireStore = getFirestore();
+
+        fireStore.collection('todoLists').add({
+            name: "",
+            owner: "",
+            items: [],
+        }).then(ref => {
+            this.props.history.push('/todolist/' + ref.id); // go to new list screen
+        });
+        */        
     }
 
     render() {
@@ -39,13 +47,6 @@ class ListScreen extends Component {
         if (!auth.uid) {
             return <Redirect to="/" />;
         }
-
-        var currentDate = new Date();
-        var timestamp = currentDate.getTime();
-        const fireStore = getFirestore();
-        fireStore.collection('todoLists').doc(this.props.todoList.id).update({
-            time: timestamp
-        });
 
         return (
             <div className="container white">
@@ -59,6 +60,10 @@ class ListScreen extends Component {
                     <input className="active" type="text" name="owner" id="owner" onChange={this.handleChange} value={todoList.owner} />
                 </div>
                 <ItemsList todoList={todoList} />
+                <div className="card-content grey-text text-darken-3">
+                    <div className="list_item_add_card center-align" onClick={this.addItem}><i className="material-icons">add_circle_outline</i></div>
+                </div>
+                
             </div>
         );
     }
