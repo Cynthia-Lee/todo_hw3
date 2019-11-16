@@ -11,10 +11,17 @@ class HomeScreen extends Component {
     handleNewList = () => {
         // adding new list to the firestore
         const fireStore = getFirestore();
+
+        // new Date().getTime();
+        var currentDate = new Date();
+        var timestamp = currentDate.getTime();
+        // console.log(timestamp);
+
         fireStore.collection('todoLists').add({
             name: "",
             owner: "",
-            items: []
+            items: [],
+            time: timestamp
         }).then(ref => {
             this.props.history.push('/todolist/' + ref.id); // go to new list screen
         });
@@ -37,10 +44,10 @@ class HomeScreen extends Component {
                             @todo<br />
                             List Maker
                         </div>
-                        
+
                         <div className="home_new_list_container">
-                                <button className="home_new_list_button" onClick={this.handleNewList}>
-                                    Create a New To Do List
+                            <button className="home_new_list_button" onClick={this.handleNewList}>
+                                Create a New To Do List
                                 </button>
                         </div>
                     </div>
@@ -59,6 +66,6 @@ const mapStateToProps = (state) => {
 export default compose(
     connect(mapStateToProps),
     firestoreConnect([
-      { collection: 'todoLists' },
+        { collection: 'todoLists', orderBy: ['time', 'desc'] },
     ]),
 )(HomeScreen);

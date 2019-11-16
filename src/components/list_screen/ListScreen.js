@@ -21,9 +21,16 @@ class ListScreen extends Component {
             [target.id]: target.value,
         }));
         // console.log(target.value);
+        var currentDate = new Date();
+        var timestamp = currentDate.getTime();
         // update the store
         const fireStore = getFirestore();
-        fireStore.collection('todoLists').doc(this.props.todoList.id).update({[target.id]: target.value});
+        fireStore.collection('todoLists').doc(this.props.todoList.id).update({
+            [target.id]: target.value,
+            time: timestamp
+        });
+        // update the time
+        // new Date().getTime();
     }
 
     render() {
