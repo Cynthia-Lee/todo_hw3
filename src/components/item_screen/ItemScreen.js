@@ -7,21 +7,46 @@ import { getFirestore } from 'redux-firestore';
 import { conditionalExpression } from '@babel/types';
 
 class ItemScreen extends Component {
+    state = {
+        description: this.props.item.description,
+        assigned_to: this.props.item.assigned_to,
+        due_date: this.props.item.due_date,
+        completed: this.props.item.completed
+    }
 
     handleChange = (e) => {
         const { target } = e;
 
-        this.setState(state => ({
-            ...state,
-            [target.id]: target.value,
-        }));
-        // console.log(target.value);
+        if (target.id == "completed") {
+            this.setState(state => ({
+                ...state,
+                [target.id]: target.checked
+            }));
+        } else {
+            this.setState(state => ({
+                ...state,
+                [target.id]: target.value,
+            }));
+        }
+    }
+
+    editItem = () => {
+        const { item } = this.props;
+
         var currentDate = new Date();
         var timestamp = currentDate.getTime();
         // update the store
         const fireStore = getFirestore();
+
+        var itemList = this.props.todoList.items;
+        var currItem = itemList[item.id];
+        currItem.description = this.state.description;
+        currItem.assigned_to = this.state.assigned_to;
+        currItem.due_date = this.state.due_date;
+        currItem.completed = this.state.completed;
+
         fireStore.collection('todoLists').doc(this.props.todoList.id).update({
-            [target.id]: target.value,
+            items: itemList,
             time: timestamp
         });
     }
@@ -33,20 +58,34 @@ class ItemScreen extends Component {
         return (
             <div id="todo_item" className="container white">
                 <h5 id="item_heading" className="grey-text text-darken-3">Item</h5>
-                <div>
-                    Description
-                    Assigned To
-                    Due Date
-                    Completed
+
+                <div className="input-field">
+                    <label className="active">Description:</label>
+                    <input className="active" type="text" name="description" id="description" onChange={this.handleChange} value={this.state.description} />
                 </div>
 
                 <div className="input-field">
-                    <label className="active">Description</label>
-                    <input className="active" type="text" name="description" id="description" onChange={this.handleChange} value={item.description} />
+                    <label className="active">Assigned To:</label>
+                    <input className="active" type="text" name="assigned_to" id="assigned_to" onChange={this.handleChange} value={this.state.assigned_to} />
                 </div>
 
-                
+                <div className="input-field">
+                    <label className="active">Due Date:</label>
+                    <input className="active" type="date" name="due_date" id="due_date" onChange={this.handleChange} value={this.state.due_date} />
+                </div>
 
+                <label>
+                    <input type="checkbox" className="filled-in" name="completed" id="completed" onChange={this.handleChange} checked={this.state.completed} />
+                    <span>Completed</span>
+                </label>
+
+                <div>
+                    <a class="waves-effect waves-light btn" onClick={this.editItem}><i class="material-icons right">mode_edit</i>Submit</a>
+                </div>
+
+                <div>
+                    <a class="waves-effect waves-light btn"><i class="material-icons right">close</i>Cancel</a>
+                </div>
             </div >
         );
     }
@@ -57,10 +96,10 @@ const mapStateToProps = (state, ownProps) => {
     const { todoLists } = state.firestore.data;
     const todoList = todoLists ? todoLists[id] : null;
     todoList.id = id;
-    
-    const {itemId} = ownProps.match.params;
+
+    const { itemId } = ownProps.match.params;
     const item = todoList.items[itemId];
-    item.id = itemId;    
+    item.id = itemId;
 
     return {
         item,
