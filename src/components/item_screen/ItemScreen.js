@@ -48,7 +48,13 @@ class ItemScreen extends Component {
         fireStore.collection('todoLists').doc(this.props.todoList.id).update({
             items: itemList,
             time: timestamp
-        });
+        })
+
+        this.props.history.goBack();
+    }
+
+    cancelEditItem = () => {
+        this.props.history.goBack();
     }
 
     render() {
@@ -80,11 +86,11 @@ class ItemScreen extends Component {
                 </label>
 
                 <div>
-                    <a class="waves-effect waves-light btn" onClick={this.editItem}><i class="material-icons right">mode_edit</i>Submit</a>
+                    <a className="waves-effect waves-light btn" onClick={this.editItem}><i className="material-icons right">mode_edit</i>Submit</a>
                 </div>
 
                 <div>
-                    <a class="waves-effect waves-light btn"><i class="material-icons right">close</i>Cancel</a>
+                    <a className="waves-effect waves-light btn" onClick={this.cancelEditItem}><i className="material-icons right">close</i>Cancel</a>
                 </div>
             </div >
         );
