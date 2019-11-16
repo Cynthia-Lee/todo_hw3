@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import ItemsList from './ItemsList.js'
 import { firestoreConnect } from 'react-redux-firebase';
+import { getFirestore } from 'redux-firestore';
+import { conditionalExpression } from '@babel/types';
 
 class ListScreen extends Component {
     state = {
@@ -18,6 +20,10 @@ class ListScreen extends Component {
             ...state,
             [target.id]: target.value,
         }));
+        // console.log(target.value);
+        // update the store
+        const fireStore = getFirestore();
+        fireStore.collection('todoLists').doc(this.props.todoList.id).update({[target.id]: target.value});
     }
 
     render() {
