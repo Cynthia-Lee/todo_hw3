@@ -32,6 +32,8 @@ class ItemScreen extends Component {
 
     editItem = () => {
         const { item } = this.props;
+        // update the store
+        const fireStore = getFirestore();
 
         var itemList = this.props.todoList.items;
         var currItem = itemList[item.id];
@@ -40,6 +42,9 @@ class ItemScreen extends Component {
         currItem.due_date = this.state.due_date;
         currItem.completed = this.state.completed;
 
+        fireStore.collection('todoLists').doc(this.props.todoList.id).update({
+            items: itemList,
+        });
         this.props.history.goBack();
     }
 
@@ -48,8 +53,8 @@ class ItemScreen extends Component {
     }
 
     render() {
-        const todoList = this.props.todoList;
-        const { item } = this.props;
+        // const todoList = this.props.todoList;
+        // const { item } = this.props;
 
         return (
             <div id="todo_item" className="container white">

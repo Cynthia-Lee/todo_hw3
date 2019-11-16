@@ -28,17 +28,25 @@ class ListScreen extends Component {
     }
 
     addItem = () => {
-        /*
         const fireStore = getFirestore();
 
-        fireStore.collection('todoLists').add({
-            name: "",
-            owner: "",
-            items: [],
-        }).then(ref => {
-            this.props.history.push('/todolist/' + ref.id); // go to new list screen
-        });
-        */        
+        var itemList = this.props.todoList.items;
+        var itemKey = itemList.length;
+        console.log(itemKey);
+        var currItem = {
+            "key": itemKey,
+            "description": "",
+            "due_date": "",
+            "assigned_to": "",
+            "completed": false
+        }
+        itemList[itemKey] = currItem;
+
+        fireStore.collection('todoLists').doc(this.props.todoList.id).update({
+            items: itemList,
+        }).then(() => {
+            this.props.history.push('/todolist/' + this.props.todoList.id + '/' + itemKey); // go to new item screen
+        });     
     }
 
     render() {
@@ -61,29 +69,29 @@ class ListScreen extends Component {
                 </div>
                 <ItemsList todoList={todoList} />
                 <div className="card-content grey-text text-darken-3">
-                    <div className="list_item_add_card center-align" onClick={this.addItem}><i className="material-icons">add_circle_outline</i></div>
+                    <div className="list_item_add_card waves-effect waves-light btn" onClick={this.addItem}><i className="material-icons">add_circle_outline</i></div>
                 </div>
-                
+
             </div>
         );
     }
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { id } = ownProps.match.params;
-  const { todoLists } = state.firestore.data;
-  const todoList = todoLists ? todoLists[id] : null;
-  todoList.id = id;
+    const { id } = ownProps.match.params;
+    const { todoLists } = state.firestore.data;
+    const todoList = todoLists ? todoLists[id] : null;
+    todoList.id = id;
 
-  return {
-    todoList,
-    auth: state.firebase.auth,
-  };
+    return {
+        todoList,
+        auth: state.firebase.auth,
+    };
 };
 
 export default compose(
-  connect(mapStateToProps),
-  firestoreConnect([
-    { collection: 'todoLists' },
-  ]),
+    connect(mapStateToProps),
+    firestoreConnect([
+        { collection: 'todoLists' },
+    ]),
 )(ListScreen);
