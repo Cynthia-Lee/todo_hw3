@@ -46,7 +46,11 @@ class ListScreen extends Component {
             items: itemList,
         }).then(() => {
             this.props.history.push('/todolist/' + this.props.todoList.id + '/' + itemKey); // go to new item screen
-        });     
+        });
+    }
+
+    deleteList = () => {
+        
     }
 
     render() {
@@ -58,14 +62,19 @@ class ListScreen extends Component {
 
         return (
             <div className="container white">
-                <h5 className="grey-text text-darken-3">Todo List</h5>
-                <div className="input-field">
-                    <label className="active" htmlFor="email">Name</label>
-                    <input className="active" type="text" name="name" id="name" onChange={this.handleChange} value={todoList.name} />
+                <div className="list_screen_header row">
+                    <div className="list_screen_title grey-text text-darken-3 col">Todo List</div>
+                    <div className="test right col" onClick={this.deleteList}><i className="medium material-icons">delete_forever</i></div>
                 </div>
-                <div className="input-field">
-                    <label className="active" htmlFor="password">Owner</label>
-                    <input className="active" type="text" name="owner" id="owner" onChange={this.handleChange} value={todoList.owner} />
+                <div className="list_input">
+                    <div className="input-field">
+                        <label className="active" htmlFor="email">Name</label>
+                        <input className="active" type="text" name="name" id="name" onChange={this.handleChange} value={todoList.name} />
+                    </div>
+                    <div className="input-field">
+                        <label className="active" htmlFor="password">Owner</label>
+                        <input className="active" type="text" name="owner" id="owner" onChange={this.handleChange} value={todoList.owner} />
+                    </div>
                 </div>
                 <ItemsList todoList={todoList} />
                 <div className="card-content grey-text text-darken-3">

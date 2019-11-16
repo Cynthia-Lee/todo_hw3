@@ -48,3 +48,16 @@ input[type=email]:not(.browser-default):focus:not([readonly]) + label,
 input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   color: #ec407a !important;
 }
+
+.list_screen_title {
+  width: 50%;
+}
+
+.list_input {
+ padding-left: 30px;
+ padding-right: 30px;
+}
+
+.list_screen_header {
+  padding-top: 15px;
+}

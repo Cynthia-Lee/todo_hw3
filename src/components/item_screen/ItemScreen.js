@@ -100,7 +100,7 @@ const mapStateToProps = (state, ownProps) => {
 
     const { itemId } = ownProps.match.params;
     const item = todoList.items[itemId];
-    item.id = itemId;
+    item.id = item ? itemId : null;
 
     return {
         item,
