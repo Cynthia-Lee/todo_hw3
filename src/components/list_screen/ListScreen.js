@@ -40,6 +40,13 @@ class ListScreen extends Component {
             return <Redirect to="/" />;
         }
 
+        var currentDate = new Date();
+        var timestamp = currentDate.getTime();
+        const fireStore = getFirestore();
+        fireStore.collection('todoLists').doc(this.props.todoList.id).update({
+            time: timestamp
+        });
+
         return (
             <div className="container white">
                 <h5 className="grey-text text-darken-3">Todo List</h5>
