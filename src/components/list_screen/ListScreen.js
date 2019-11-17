@@ -68,9 +68,9 @@ class ListScreen extends Component {
 
                     <Modal className="delete_list_modal" header="Delete List?"
                         actions={
-                            <div class="modal-footer">
-                                <div className="modal-close waves-effect waves-green btn-flat"><i className="material-icons">check</i>Yes</div>
-                                <div className="modal-close waves-effect waves-red btn-flat"><i className="material-icons">close</i>No</div>
+                            <div class="delete_list_modal_footer">
+                                <div className="confirm_delete_button modal-close waves-effect waves-light green btn-flat"><i className="material-icons left">check</i>Yes</div>
+                                <div className="modal-close waves-effect waves-light red btn-flat"><i className="material-icons left">close</i>No</div>
                             </div>
                         }
                         trigger={<div className="right col" onClick={this.deleteList}><i className="medium material-icons">delete_forever</i></div>

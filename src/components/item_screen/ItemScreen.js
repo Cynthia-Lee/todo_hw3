@@ -81,11 +81,11 @@ class ItemScreen extends Component {
                 </label>
 
                 <div>
-                    <a className="waves-effect waves-light btn" onClick={this.editItem}><i className="material-icons right">mode_edit</i>Submit</a>
+                    <a className="waves-effect waves-light btn" onClick={this.editItem}><i className="material-icons left">mode_edit</i>Submit</a>
                 </div>
 
                 <div>
-                    <a className="waves-effect waves-light btn" onClick={this.cancelEditItem}><i className="material-icons right">close</i>Cancel</a>
+                    <a className="waves-effect waves-light btn" onClick={this.cancelEditItem}><i className="material-icons left">close</i>Cancel</a>
                 </div>
             </div >
         );

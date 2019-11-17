@@ -64,8 +64,18 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 
 .delete_list_modal{
   overflow-y: hidden;
+  width: 40%;
 }
 
 .delete_list_modal_content {
   font-size: 20px;
+  padding-bottom: 5px;
+}
+
+.delete_list_modal_footer{
+  padding-right: 20px;
+}
+
+.confirm_delete_button {
+  margin-right: 20px !important;
 }
