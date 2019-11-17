@@ -79,3 +79,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 .confirm_delete_button {
   margin-right: 20px !important;
 }
+
+.input-field{
+  margin-bottom: 30px;
+}

@@ -57,10 +57,6 @@ class ListScreen extends Component {
         fireStore.collection('todoLists').doc(this.props.todoList.id).delete();
         this.props.history.push('/'); // go to home screen
     }
-    
-    cancelDeleteList = () => {
-
-    }
 
     render() {
         const auth = this.props.auth;
@@ -78,7 +74,7 @@ class ListScreen extends Component {
                         actions={
                             <div class="delete_list_modal_footer">
                                 <div className="confirm_delete_button modal-close waves-effect waves-light green btn-flat" onClick={this.confirmDeleteList}><i className="material-icons left">check</i>Yes</div>
-                                <div className="modal-close waves-effect waves-light red btn-flat" onClick={this.cancelDeleteList}><i className="material-icons left">close</i>No</div>
+                                <div className="modal-close waves-effect waves-light red btn-flat"><i className="material-icons left">close</i>No</div>
                             </div>
                         }
                         trigger={<div className="right col" onClick={this.deleteList}><i className="medium material-icons">delete_forever</i></div>
@@ -92,11 +88,11 @@ class ListScreen extends Component {
                 </div>
                 <div className="list_input">
                     <div className="input-field">
-                        <label className="active" htmlFor="email">Name</label>
+                        <label className="active" htmlFor="email" id="name_prompt">Name</label>
                         <input className="active" type="text" name="name" id="name" onChange={this.handleChange} value={todoList.name} />
                     </div>
                     <div className="input-field">
-                        <label className="active" htmlFor="password">Owner</label>
+                        <label className="active" htmlFor="password" id="owner_prompt">Owner</label>
                         <input className="active" type="text" name="owner" id="owner" onChange={this.handleChange} value={todoList.owner} />
                     </div>
                 </div>
