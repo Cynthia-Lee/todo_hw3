@@ -32,16 +32,17 @@ class ItemScreen extends Component {
 
     editItem = () => {
         const { item } = this.props;
+        var itemList = this.props.todoList.items;
+
+        item.description = this.state.description;
+        item.assigned_to = this.state.assigned_to;
+        item.due_date = this.state.due_date;
+        item.completed = this.state.completed;
+
+        itemList[item.id] = item;
+
         // update the store
         const fireStore = getFirestore();
-
-        var itemList = this.props.todoList.items;
-        var currItem = itemList[item.id];
-        currItem.description = this.state.description;
-        currItem.assigned_to = this.state.assigned_to;
-        currItem.due_date = this.state.due_date;
-        currItem.completed = this.state.completed;
-
         fireStore.collection('todoLists').doc(this.props.todoList.id).update({
             items: itemList,
         });
@@ -99,8 +100,19 @@ const mapStateToProps = (state, ownProps) => {
     todoList.id = id;
 
     const { itemId } = ownProps.match.params;
-    const item = todoList.items[itemId];
-    item.id = item ? itemId : null;
+    // console.log(itemId);
+    var check = todoList.items[itemId];
+    // console.log(check);
+    const item = check == undefined ?
+        {
+            "key": todoList.items.length,
+            "description": "",
+            "due_date": "",
+            "assigned_to": "",
+            "completed": false
+        } : todoList.items[itemId];
+    // console.log(item);
+    item.id = itemId;
 
     return {
         item,

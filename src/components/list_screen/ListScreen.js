@@ -28,6 +28,12 @@ class ListScreen extends Component {
     }
 
     addItem = () => {
+
+        var itemList = this.props.todoList.items;
+        var itemKey = itemList.length;
+        this.props.history.push('/todolist/' + this.props.todoList.id + '/' + itemKey); // go to new item screen
+
+        /*
         const fireStore = getFirestore();
 
         var itemList = this.props.todoList.items;
@@ -47,10 +53,11 @@ class ListScreen extends Component {
         }).then(() => {
             this.props.history.push('/todolist/' + this.props.todoList.id + '/' + itemKey); // go to new item screen
         });
+        */
     }
 
     deleteList = () => {
-        
+
     }
 
     render() {
