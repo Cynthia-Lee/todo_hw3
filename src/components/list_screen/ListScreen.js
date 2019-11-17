@@ -28,11 +28,9 @@ class ListScreen extends Component {
     }
 
     addItem = () => {
-
         var itemList = this.props.todoList.items;
         var itemKey = itemList.length;
         this.props.history.push('/todolist/' + this.props.todoList.id + '/' + itemKey); // go to new item screen
-
         /*
         const fireStore = getFirestore();
         var itemList = this.props.todoList.items;
@@ -54,6 +52,16 @@ class ListScreen extends Component {
         */
     }
 
+    confirmDeleteList = () => {
+        const fireStore = getFirestore();
+        fireStore.collection('todoLists').doc(this.props.todoList.id).delete();
+        this.props.history.push('/'); // go to home screen
+    }
+    
+    cancelDeleteList = () => {
+
+    }
+
     render() {
         const auth = this.props.auth;
         const todoList = this.props.todoList;
@@ -69,8 +77,8 @@ class ListScreen extends Component {
                     <Modal className="delete_list_modal" header="Delete List?"
                         actions={
                             <div class="delete_list_modal_footer">
-                                <div className="confirm_delete_button modal-close waves-effect waves-light green btn-flat"><i className="material-icons left">check</i>Yes</div>
-                                <div className="modal-close waves-effect waves-light red btn-flat"><i className="material-icons left">close</i>No</div>
+                                <div className="confirm_delete_button modal-close waves-effect waves-light green btn-flat" onClick={this.confirmDeleteList}><i className="material-icons left">check</i>Yes</div>
+                                <div className="modal-close waves-effect waves-light red btn-flat" onClick={this.cancelDeleteList}><i className="material-icons left">close</i>No</div>
                             </div>
                         }
                         trigger={<div className="right col" onClick={this.deleteList}><i className="medium material-icons">delete_forever</i></div>
