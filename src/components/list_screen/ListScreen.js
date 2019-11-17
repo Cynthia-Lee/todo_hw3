@@ -7,10 +7,20 @@ import { firestoreConnect } from 'react-redux-firebase';
 import { getFirestore } from 'redux-firestore';
 import { Modal, Button } from 'react-materialize';
 
+const ItemSortCriteria = {
+    SORT_BY_TASK_INCREASING: "sort_by_task_increasing",
+    SORT_BY_TASK_DECREASING: "sort_by_task_decreasing",
+    SORT_BY_DUE_DATE_INCREASING: "sort_by_due_date_increasing",
+    SORT_BY_DUE_DATE_DECREASING: "sort_by_due_date_decreasing",
+    SORT_BY_STATUS_INCREASING: "sort_by_status_increasing",
+    SORT_BY_STATUS_DECREASING: "sort_by_status_decreasing"
+};
+
 class ListScreen extends Component {
     state = {
         name: '',
         owner: '',
+        currentItemSortCriteria: "default"
     }
 
     handleChange = (e) => {
@@ -58,6 +68,85 @@ class ListScreen extends Component {
         this.props.history.push('/'); // go to home screen
     }
 
+    /**
+    * This method compares two items for the purpose of sorting according to what
+    * is currently set as the current sorting criteria.
+    * 
+    * @param {TodoListItem} item1 First item to compare.
+    * @param {TodoListItem} item2 Second item to compare.
+    */
+    compare = (item1, item2) => {
+        console.log("before " + this.state.currentItemSortCriteria);
+        // IF IT'S A DECREASING CRITERIA SWAP THE ITEMS
+        if (this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_TASK_DECREASING)
+            || this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_DUE_DATE_DECREASING)
+            || this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_STATUS_DECREASING)) {
+            let temp = item1;
+            item1 = item2;
+            item2 = temp;
+        }
+        // SORT BY ITEM DESCRIPTION
+        if (this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_TASK_INCREASING)
+            || this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_TASK_DECREASING)) {
+            if (item1.description < item2.description)
+                return -1;
+            else if (item1.description > item2.description)
+                return 1;
+            else
+                return 0;
+        }
+        // SORT BY DUE DATE
+        else if (this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_DUE_DATE_INCREASING)
+            || this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_DUE_DATE_DECREASING)) {
+            let dueDate1 = item1.due_date;
+            let dueDate2 = item2.due_date;
+            let date1 = new Date(dueDate1);
+            let date2 = new Date(dueDate2);
+            if (date1 < date2)
+                return -1;
+            else if (date1 > date2)
+                return 1;
+            else
+                return 0;
+        }
+        // SORT BY COMPLETED
+        else {
+            if (item1.completed < item2.completed)
+                return -1;
+            else if (item1.completed > item2.completed)
+                return 1;
+            else
+                return 0;
+        }
+    }
+
+    isCurrentItemSortCriteria(testCriteria) {
+        return this.state.currentItemSortCriteria === testCriteria;
+    }
+
+    sortDescription = () => {
+        console.log("before " + this.state.currentItemSortCriteria);
+        var itemList = this.props.todoList.items;
+        const fireStore = getFirestore();
+        // update the state
+        if (this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_TASK_INCREASING)) {
+            this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_TASK_DECREASING });
+        }
+        // ALL OTHER CASES SORT BY INCREASING
+        else {
+            console.log("not inc..." + this.state.currentItemSortCriteria);
+            this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_TASK_INCREASING });
+            console.log("test " + ItemSortCriteria.SORT_BY_TASK_INCREASING);
+            console.log("pls change..." + this.state.currentItemSortCriteria);
+        }
+        console.log(this.state.currentItemSortCriteria);
+        itemList.sort(this.compare);
+        // update the store
+        fireStore.collection('todoLists').doc(this.props.todoList.id).update({
+            items: itemList,
+        });
+    }
+
     render() {
         const auth = this.props.auth;
         const todoList = this.props.todoList;
@@ -95,6 +184,11 @@ class ListScreen extends Component {
                         <label className="active" htmlFor="password" id="owner_prompt">Owner</label>
                         <input className="active" type="text" name="owner" id="owner" onChange={this.handleChange} value={todoList.owner} />
                     </div>
+                </div>
+                <div className="card_headers card card-content z-depth-0 row">
+                    <div className="col s4"><span className="clickable_sort" onClick={this.sortDescription}>Description</span></div>
+                    <div className="col s3">Due Date</div>
+                    <div className="col s3">Status</div>
                 </div>
                 <ItemsList todoList={todoList} />
                 <div className="card-content grey-text text-darken-3">
