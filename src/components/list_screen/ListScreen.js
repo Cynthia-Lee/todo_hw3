@@ -5,7 +5,7 @@ import { compose } from 'redux';
 import ItemsList from './ItemsList.js'
 import { firestoreConnect } from 'react-redux-firebase';
 import { getFirestore } from 'redux-firestore';
-import { conditionalExpression } from '@babel/types';
+import { Modal, Button } from 'react-materialize';
 
 class ListScreen extends Component {
     state = {
@@ -35,7 +35,6 @@ class ListScreen extends Component {
 
         /*
         const fireStore = getFirestore();
-
         var itemList = this.props.todoList.items;
         var itemKey = itemList.length;
         console.log(itemKey);
@@ -47,17 +46,12 @@ class ListScreen extends Component {
             "completed": false
         }
         itemList[itemKey] = currItem;
-
         fireStore.collection('todoLists').doc(this.props.todoList.id).update({
             items: itemList,
         }).then(() => {
             this.props.history.push('/todolist/' + this.props.todoList.id + '/' + itemKey); // go to new item screen
         });
         */
-    }
-
-    deleteList = () => {
-
     }
 
     render() {
@@ -71,7 +65,22 @@ class ListScreen extends Component {
             <div className="container white">
                 <div className="list_screen_header row">
                     <div className="list_screen_title grey-text text-darken-3 col">Todo List</div>
-                    <div className="test right col" onClick={this.deleteList}><i className="medium material-icons">delete_forever</i></div>
+
+                    <Modal className="delete_list_modal" header="Delete List?"
+                        actions={
+                            <div class="modal-footer">
+                                <div className="modal-close waves-effect waves-green btn-flat"><i className="material-icons">check</i>Yes</div>
+                                <div className="modal-close waves-effect waves-red btn-flat"><i className="material-icons">close</i>No</div>
+                            </div>
+                        }
+                        trigger={<div className="right col" onClick={this.deleteList}><i className="medium material-icons">delete_forever</i></div>
+                        } options={{ dismissible: false }}>
+                        <div class="delete_list_modal_content">
+                            <p>Are you sure you want to delete the list?</p>
+                            <p>The list will not be retreivable.</p>
+                        </div>
+                    </Modal>
+
                 </div>
                 <div className="list_input">
                     <div className="input-field">

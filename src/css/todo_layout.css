@@ -61,3 +61,11 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 .list_screen_header {
   padding-top: 15px;
 }
+
+.delete_list_modal{
+  overflow-y: hidden;
+}
+
+.delete_list_modal_content {
+  font-size: 20px;
+}
