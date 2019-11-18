@@ -54,7 +54,7 @@ class ItemScreen extends Component {
         item.completed = this.state.completed;
 
         itemList[item.id] = item;
-
+        
         // update the store
         const fireStore = getFirestore();
         fireStore.collection('todoLists').doc(this.props.todoList.id).update({

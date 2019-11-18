@@ -4,12 +4,21 @@ import { getFirestore } from 'redux-firestore';
 
 class ItemCard extends React.Component {
 
+    updateItemIds() {
+        var itemList = this.props.todoList.items;
+        for (var i = 0; i < itemList.length; i++) {
+            itemList[i].id = i;
+            // console.log(itemList[i]);
+        }
+    }
+
     deleteItem = e => {
         e.preventDefault();
         const { item } = this.props;
         var itemList = this.props.todoList.items;
         itemList.splice(itemList.indexOf(item),1); // remove item from list
         // update the store
+        this.updateItemIds();
         const fireStore = getFirestore();
         fireStore.collection('todoLists').doc(this.props.todoList.id).update({
             items: itemList,
@@ -20,13 +29,12 @@ class ItemCard extends React.Component {
         e.preventDefault();
         const { item } = this.props;
         var itemList = this.props.todoList.items;
-
-        var itemIndex = itemList.indexOf(item);
+        var itemIndex = itemList.indexOf(item); // swap
         let temp = itemList[itemIndex + 1];
         itemList[itemIndex + 1] = item;
         itemList[itemIndex] = temp;
-
         // update the store
+        this.updateItemIds();
         const fireStore = getFirestore();
         fireStore.collection('todoLists').doc(this.props.todoList.id).update({
             items: itemList,
@@ -37,13 +45,12 @@ class ItemCard extends React.Component {
         e.preventDefault();
         const { item } = this.props;
         var itemList = this.props.todoList.items;
-
-        var itemIndex = itemList.indexOf(item);
+        var itemIndex = itemList.indexOf(item); // swap
         let temp = itemList[itemIndex - 1];
         itemList[itemIndex - 1] = item;
         itemList[itemIndex] = temp;
-
         // update the store
+        this.updateItemIds();
         const fireStore = getFirestore();
         fireStore.collection('todoLists').doc(this.props.todoList.id).update({
             items: itemList,
