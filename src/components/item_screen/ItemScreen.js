@@ -29,7 +29,6 @@ class ItemScreen extends Component {
         }
     }
 
-    /*
     createItemKey() {
         var i;
         for (i = 0; i < this.props.todoList.items.length; i++) {
@@ -39,15 +38,14 @@ class ItemScreen extends Component {
         }
         return i;
     }
-    */
 
     editItem = () => {
         const { item } = this.props;
         var itemList = this.props.todoList.items;
 
-        if(item.key == undefined) {
-            // item.key = this.createItemKey();
-            item.key = item.id; // key
+        if (item.key == undefined) {
+            item.key = this.createItemKey();
+            // item.key = item.id; // key
         }
 
         item.description = this.state.description;

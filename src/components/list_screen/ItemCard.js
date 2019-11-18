@@ -1,11 +1,20 @@
 import React from 'react';
 import { Icon, Button } from 'react-materialize';
+import { getFirestore } from 'redux-firestore';
 
 class ItemCard extends React.Component {
 
-    deleteItem = () => {
+    deleteItem = e => {
+        e.preventDefault();
         const { item } = this.props;
-        
+        var itemList = this.props.todoList.items;
+
+        itemList.splice(itemList.indexOf(item),1);
+        // update the store
+        const fireStore = getFirestore();
+        fireStore.collection('todoLists').doc(this.props.todoList.id).update({
+            items: itemList,
+        });
     }
 
     render() {

@@ -13,13 +13,23 @@ class ItemsList extends React.Component {
         return (
             <div className="todo-lists section">
                 {items && items.map(function(item) {
-                    // console.log(item.key);
+                    console.log(item);
+                    // console.log(items.indexOf(item));
+                    // item.id = item.key;
+                    item.id = items.indexOf(item);
+                    return (
+                        <Link to={'/todoList/' + todoList.id + '/' + item.id} key={item.key}>
+                            <ItemCard todoList={todoList} item={item} />
+                        </Link>
+                    );})
+                    /*
                     item.id = item.key;
                     return (
                         <Link to={'/todoList/' + todoList.id + '/' + item.id} key={item.id}>
                             <ItemCard todoList={todoList} item={item} />
                         </Link>
                     );})
+                    */
                 }
             </div>
         );
