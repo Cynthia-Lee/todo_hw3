@@ -124,10 +124,17 @@ class ListScreen extends Component {
         return this.state.currentItemSortCriteria === testCriteria;
     }
 
-    sortDescription = () => {
-        console.log("before " + this.state.currentItemSortCriteria);
+    sortList = () => {
         var itemList = this.props.todoList.items;
         const fireStore = getFirestore();
+        itemList.sort(this.compare);
+        // update the store
+        fireStore.collection('todoLists').doc(this.props.todoList.id).update({
+            items: itemList,
+        });
+    }
+
+    sortDescription = () => {
         // update the state
         if (this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_TASK_INCREASING)) {
             this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_TASK_DECREASING });
@@ -136,12 +143,31 @@ class ListScreen extends Component {
         else {
             this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_TASK_INCREASING });
         }
-        console.log(this.state.currentItemSortCriteria);
-        itemList.sort(this.compare);
-        // update the store
-        fireStore.collection('todoLists').doc(this.props.todoList.id).update({
-            items: itemList,
-        });
+        this.sortList();
+    }
+
+    sortDueDate = () => {
+        // update the state
+        if (this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_DUE_DATE_INCREASING)) {
+            this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_DUE_DATE_DECREASING });
+        }
+        // ALL OTHER CASES SORT BY INCREASING
+        else {
+            this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_DUE_DATE_INCREASING });
+        }
+        this.sortList();
+    }
+
+    sortCompleted = () => {
+        // update the state
+        if (this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_STATUS_INCREASING)) {
+            this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_STATUS_DECREASING });
+        }
+        // ALL OTHER CASES SORT BY INCREASING
+        else {
+            this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_STATUS_INCREASING });
+        }
+        this.sortList();
     }
 
     render() {
@@ -183,9 +209,9 @@ class ListScreen extends Component {
                     </div>
                 </div>
                 <div className="card_headers card card-content z-depth-0 row">
-                    <div className="col s4"><span className="clickable_sort" onClick={this.sortDescription}>Description</span></div>
-                    <div className="col s3">Due Date</div>
-                    <div className="col s3">Status</div>
+                    <div className="col s4"><span className="clickable_sort" onClick={this.sortDescription}>Task</span></div>
+                    <div className="col s3"><span className="clickable_sort" onClick={this.sortDueDate}>Due Date</span></div>
+                    <div className="col s3"><span className="clickable_sort" onClick={this.sortCompleted}>Status</span></div>
                 </div>
                 <ItemsList todoList={todoList} />
                 <div className="card-content grey-text text-darken-3">
