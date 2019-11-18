@@ -75,33 +75,34 @@ class ItemScreen extends Component {
             <div id="todo_item" className="container white">
                 <div id="todo_item_content" className="">
                     <h5 id="item_heading" className="grey-text text-darken-3 list_screen_header">Item</h5>
-
-                    <div className="input-field">
-                        <label className="active">Description:</label>
-                        <input className="active" type="text" name="description" id="description" onChange={this.handleChange} value={this.state.description} />
-                    </div>
-
-                    <div className="input-field">
-                        <label className="active">Assigned To:</label>
-                        <input className="active" type="text" name="assigned_to" id="assigned_to" onChange={this.handleChange} value={this.state.assigned_to} />
-                    </div>
-
-                    <div className="input-field">
-                        <label className="active">Due Date:</label>
-                        <input className="active" type="date" name="due_date" id="due_date" onChange={this.handleChange} value={this.state.due_date} />
-                    </div>
-
-                    <label>
-                        <input type="checkbox" className="filled-in" name="completed" id="completed" onChange={this.handleChange} checked={this.state.completed} />
-                        <span>Completed</span>
-                    </label>
-
-                    <div className="item_screen_buttons row">
-                        <div className="col">
-                            <a className="waves-effect waves-light btn" onClick={this.editItem}><i className="material-icons left">mode_edit</i>Submit</a>
+                    <div className="item_input">
+                        <div className="input-field">
+                            <label id="description_prompt" className="active">Description:</label>
+                            <input className="active" type="text" name="description" id="description" onChange={this.handleChange} value={this.state.description} />
                         </div>
-                        <div className="col">
-                            <a className="waves-effect waves-light btn" onClick={this.cancelEditItem}><i className="material-icons left">close</i>Cancel</a>
+
+                        <div className="input-field">
+                            <label id="assigned_to_prompt" className="active">Assigned To:</label>
+                            <input className="active" type="text" name="assigned_to" id="assigned_to" onChange={this.handleChange} value={this.state.assigned_to} />
+                        </div>
+
+                        <div className="input-field">
+                            <label id="due_date_prompt" className="active">Due Date:</label>
+                            <input className="active" type="date" name="due_date" id="due_date" onChange={this.handleChange} value={this.state.due_date} />
+                        </div>
+
+                        <label className="checkbox_field row">
+                            <input type="checkbox" className="col filled-in" name="completed" id="completed" onChange={this.handleChange} checked={this.state.completed} />
+                            <span className="col" id="completed_prompt">Completed</span>
+                        </label>
+
+                        <div className="item_screen_buttons row">
+                            <div className="col">
+                                <a className="waves-effect waves-light btn" onClick={this.editItem}><i className="material-icons left">mode_edit</i>Submit</a>
+                            </div>
+                            <div className="col">
+                                <a className="waves-effect waves-light btn" onClick={this.cancelEditItem}><i className="material-icons left">close</i>Cancel</a>
+                            </div>
                         </div>
                     </div>
                 </div>

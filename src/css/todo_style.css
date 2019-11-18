@@ -51,11 +51,12 @@ div.banner {
   font-size: 24px !important;
 }
 
-#name, #name_prompt, #owner, #owner_prompt {
-  font-size: 26px;
+#name, #name_prompt, #owner, #owner_prompt, #description_prompt, #description, 
+#assigned_to_prompt, #assigned_to, #due_date_prompt, #due_date {
+  font-size: 24px;
 }
 
-.list_input {
+.list_input, .item_input{
   font-size: 40px;
 }
 
@@ -70,6 +71,11 @@ div.banner {
   background-color: #607d8b;
 }
 
-.clickable_sort{
+.clickable_sort, #completed {
   cursor: pointer;
+}
+
+#completed_prompt {
+  cursor: text;
+  font-size: 18px;
 }

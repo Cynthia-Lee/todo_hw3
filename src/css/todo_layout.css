@@ -53,21 +53,25 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   padding-bottom: 30px;
 }
 
-.list_screen_title {
+.list_screen_title, #item_heading {
   width: 50%;
   padding-top: 25px !important;
   padding-bottom: 10px !important;
-}
-
-.list_input {
- padding-left: 35.25px;
- padding-right: 35.25px;
 }
 
 .list_screen_header {
   padding-top: 15px;
   padding-left: 24px;
 }
+
+.list_input, .item_input, #item_heading {
+  padding-left: 35.25px;
+  padding-right: 35.25px;
+ }
+
+ .item_input {
+   padding-bottom: 70px;
+ }
 
 .delete_list_modal{
   overflow-y: hidden;
