@@ -16,7 +16,7 @@ class ItemCard extends React.Component {
         e.preventDefault();
         const { item } = this.props;
         var itemList = this.props.todoList.items;
-        itemList.splice(itemList.indexOf(item),1); // remove item from list
+        itemList.splice(itemList.indexOf(item), 1); // remove item from list
         // update the store
         this.updateItemIds();
         const fireStore = getFirestore();
@@ -34,7 +34,9 @@ class ItemCard extends React.Component {
         itemList[itemIndex + 1] = item;
         itemList[itemIndex] = temp;
         // update the store
-        this.updateItemIds();
+        item.id = itemIndex + 1;
+        temp.id = itemIndex;
+        // this.updateItemIds();
         const fireStore = getFirestore();
         fireStore.collection('todoLists').doc(this.props.todoList.id).update({
             items: itemList,
@@ -50,7 +52,9 @@ class ItemCard extends React.Component {
         itemList[itemIndex - 1] = item;
         itemList[itemIndex] = temp;
         // update the store
-        this.updateItemIds();
+        item.id = itemIndex - 1;
+        temp.id = itemIndex;
+        // this.updateItemIds();
         const fireStore = getFirestore();
         fireStore.collection('todoLists').doc(this.props.todoList.id).update({
             items: itemList,

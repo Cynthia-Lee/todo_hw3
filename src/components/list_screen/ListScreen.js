@@ -72,11 +72,9 @@ class ListScreen extends Component {
     * This method compares two items for the purpose of sorting according to what
     * is currently set as the current sorting criteria.
     * 
-    * @param {TodoListItem} item1 First item to compare.
-    * @param {TodoListItem} item2 Second item to compare.
     */
     compare = (item1, item2) => {
-        console.log("before " + this.state.currentItemSortCriteria);
+        // console.log("before " + this.state.currentItemSortCriteria);
         // IF IT'S A DECREASING CRITERIA SWAP THE ITEMS
         if (this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_TASK_DECREASING)
             || this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_DUE_DATE_DECREASING)
@@ -98,10 +96,8 @@ class ListScreen extends Component {
         // SORT BY DUE DATE
         else if (this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_DUE_DATE_INCREASING)
             || this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_DUE_DATE_DECREASING)) {
-            let dueDate1 = item1.due_date;
-            let dueDate2 = item2.due_date;
-            let date1 = new Date(dueDate1);
-            let date2 = new Date(dueDate2);
+            let date1 = item1.due_date;
+            let date2 = item2.due_date;
             if (date1 < date2)
                 return -1;
             else if (date1 > date2)
@@ -120,54 +116,71 @@ class ListScreen extends Component {
         }
     }
 
-    isCurrentItemSortCriteria(testCriteria) {
+    isCurrentItemSortCriteria = (testCriteria) => {
         return this.state.currentItemSortCriteria === testCriteria;
     }
 
     sortList = () => {
-        var itemList = this.props.todoList.items;
         const fireStore = getFirestore();
-        itemList.sort(this.compare);
+        fireStore.collection("todoLists").doc(this.props.todoList.id).update({
+            sortCriteria: this.state.currentItemSortCriteria
+        });
         // update the store
+        let itemList = this.props.todoList.items.sort(this.compare);
         fireStore.collection('todoLists').doc(this.props.todoList.id).update({
-            items: itemList,
+            items: itemList
         });
     }
 
     sortDescription = () => {
         // update the state
         if (this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_TASK_INCREASING)) {
-            this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_TASK_DECREASING });
+            // this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_TASK_DECREASING });
+            this.setState({
+                currentItemSortCriteria: ItemSortCriteria.SORT_BY_TASK_DECREASING
+            }, function () { this.sortList() });
         }
         // ALL OTHER CASES SORT BY INCREASING
         else {
-            this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_TASK_INCREASING });
+            // this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_TASK_INCREASING });
+            this.setState({
+                currentItemSortCriteria: ItemSortCriteria.SORT_BY_TASK_INCREASING
+            }, function () { this.sortList() });
         }
-        this.sortList();
     }
 
     sortDueDate = () => {
         // update the state
         if (this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_DUE_DATE_INCREASING)) {
-            this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_DUE_DATE_DECREASING });
+            // this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_DUE_DATE_DECREASING });
+            this.setState({
+                currentItemSortCriteria: ItemSortCriteria.SORT_BY_DUE_DATE_DECREASING
+            }, function () { this.sortList() });
         }
         // ALL OTHER CASES SORT BY INCREASING
         else {
-            this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_DUE_DATE_INCREASING });
+            // this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_DUE_DATE_INCREASING });
+            this.setState({
+                currentItemSortCriteria: ItemSortCriteria.SORT_BY_DUE_DATE_INCREASING
+            }, function () { this.sortList() });
         }
-        this.sortList();
     }
 
     sortCompleted = () => {
         // update the state
         if (this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_STATUS_INCREASING)) {
-            this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_STATUS_DECREASING });
+            // this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_STATUS_DECREASING });
+            this.setState({
+                currentItemSortCriteria: ItemSortCriteria.SORT_BY_STATUS_DECREASING
+            }, function () { this.sortList() });
         }
         // ALL OTHER CASES SORT BY INCREASING
         else {
-            this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_STATUS_INCREASING });
+            // this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_STATUS_INCREASING });
+            this.setState({
+                currentItemSortCriteria: ItemSortCriteria.SORT_BY_STATUS_INCREASING
+            }, function () { this.sortList() });
         }
-        this.sortList();
     }
 
     render() {
