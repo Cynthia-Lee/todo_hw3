@@ -87,3 +87,11 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 .card_headers {
   padding: 24px;
 }
+
+.fixed-action-btn {
+  position: relative;
+  float: right;
+  top: 5px !important;
+  right: 0px !important;
+  bottom: 0px !important;
+}

@@ -29,6 +29,18 @@ class ItemScreen extends Component {
         }
     }
 
+    /*
+    createItemKey() {
+        var i;
+        for (i = 0; i < this.props.todoList.items.length; i++) {
+            if ((this.props.todoList.items.find(function (item) { return item.key == i })) == null) { // true if found
+                return i;
+            }
+        }
+        return i;
+    }
+    */
+
     editItem = () => {
         const { item } = this.props;
         var itemList = this.props.todoList.items;
