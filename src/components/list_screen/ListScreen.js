@@ -41,25 +41,6 @@ class ListScreen extends Component {
         var itemList = this.props.todoList.items;
         // var itemKey = this.createItemKey();
         this.props.history.push('/todolist/' + this.props.todoList.id + '/' + itemList.length); // go to new item screen
-        /*
-        const fireStore = getFirestore();
-        var itemList = this.props.todoList.items;
-        var itemKey = itemList.length;
-        console.log(itemKey);
-        var currItem = {
-            "key": itemKey,
-            "description": "",
-            "due_date": "",
-            "assigned_to": "",
-            "completed": false
-        }
-        itemList[itemKey] = currItem;
-        fireStore.collection('todoLists').doc(this.props.todoList.id).update({
-            items: itemList,
-        }).then(() => {
-            this.props.history.push('/todolist/' + this.props.todoList.id + '/' + itemKey); // go to new item screen
-        });
-        */
     }
 
     confirmDeleteList = () => {
@@ -74,7 +55,6 @@ class ListScreen extends Component {
     * 
     */
     compare = (item1, item2) => {
-        // console.log("before " + this.state.currentItemSortCriteria);
         // IF IT'S A DECREASING CRITERIA SWAP THE ITEMS
         if (this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_TASK_DECREASING)
             || this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_DUE_DATE_DECREASING)
@@ -135,14 +115,12 @@ class ListScreen extends Component {
     sortDescription = () => {
         // update the state
         if (this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_TASK_INCREASING)) {
-            // this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_TASK_DECREASING });
             this.setState({
                 currentItemSortCriteria: ItemSortCriteria.SORT_BY_TASK_DECREASING
             }, function () { this.sortList() });
         }
         // ALL OTHER CASES SORT BY INCREASING
         else {
-            // this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_TASK_INCREASING });
             this.setState({
                 currentItemSortCriteria: ItemSortCriteria.SORT_BY_TASK_INCREASING
             }, function () { this.sortList() });
@@ -152,14 +130,12 @@ class ListScreen extends Component {
     sortDueDate = () => {
         // update the state
         if (this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_DUE_DATE_INCREASING)) {
-            // this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_DUE_DATE_DECREASING });
             this.setState({
                 currentItemSortCriteria: ItemSortCriteria.SORT_BY_DUE_DATE_DECREASING
             }, function () { this.sortList() });
         }
         // ALL OTHER CASES SORT BY INCREASING
         else {
-            // this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_DUE_DATE_INCREASING });
             this.setState({
                 currentItemSortCriteria: ItemSortCriteria.SORT_BY_DUE_DATE_INCREASING
             }, function () { this.sortList() });
@@ -169,14 +145,12 @@ class ListScreen extends Component {
     sortCompleted = () => {
         // update the state
         if (this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_STATUS_INCREASING)) {
-            // this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_STATUS_DECREASING });
             this.setState({
                 currentItemSortCriteria: ItemSortCriteria.SORT_BY_STATUS_DECREASING
             }, function () { this.sortList() });
         }
         // ALL OTHER CASES SORT BY INCREASING
         else {
-            // this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_STATUS_INCREASING });
             this.setState({
                 currentItemSortCriteria: ItemSortCriteria.SORT_BY_STATUS_INCREASING
             }, function () { this.sortList() });

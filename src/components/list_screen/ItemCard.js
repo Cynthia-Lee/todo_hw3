@@ -84,9 +84,9 @@ class ItemCard extends React.Component {
                                 large
                                 icon={<Icon>more_horiz</Icon>}
                             >
+                                {this.props.todoList.items.indexOf(item) == 0 ? <Button floating disabled icon={<Icon>arrow_upward</Icon>} onClick={this.moveUpItem} className="blue" /> : <Button floating icon={<Icon>arrow_upward</Icon>} onClick={this.moveUpItem} className="blue" />}
+                                {this.props.todoList.items.indexOf(item) == this.props.todoList.items.length - 1 ? <Button floating disabled icon={<Icon>arrow_downward</Icon>} onClick={this.moveDownItem} className="green" /> : <Button floating icon={<Icon>arrow_downward</Icon>} onClick={this.moveDownItem} className="green" />}
                                 <Button floating icon={<Icon>delete</Icon>} onClick={this.deleteItem} className="yellow darken-1" />
-                                <Button floating icon={<Icon>arrow_downward</Icon>} onClick={this.moveDownItem} className="green" />
-                                <Button floating icon={<Icon>arrow_upward</Icon>} onClick={this.moveUpItem} className="blue" />
                             </Button>
                         </div>
 
@@ -114,9 +114,9 @@ class ItemCard extends React.Component {
                                 large
                                 icon={<Icon>more_horiz</Icon>}
                             >
+                                {this.props.todoList.items.indexOf(item) == 0 ? <Button floating disabled icon={<Icon>arrow_upward</Icon>} onClick={this.moveUpItem} className="blue" /> : <Button floating icon={<Icon>arrow_upward</Icon>} onClick={this.moveUpItem} className="blue" />}
+                                {this.props.todoList.items.indexOf(item) == this.props.todoList.items.length - 1 ? <Button floating disabled icon={<Icon>arrow_downward</Icon>} onClick={this.moveDownItem} className="green" /> : <Button floating icon={<Icon>arrow_downward</Icon>} onClick={this.moveDownItem} className="green" />}
                                 <Button floating icon={<Icon>delete</Icon>} onClick={this.deleteItem} className="yellow darken-1" />
-                                <Button floating icon={<Icon>arrow_downward</Icon>} onClick={this.moveDownItem} className="green" />
-                                <Button floating icon={<Icon>arrow_upward</Icon>} onClick={this.moveUpItem} className="blue" />
                             </Button>
                         </div>
 
