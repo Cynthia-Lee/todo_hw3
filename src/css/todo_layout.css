@@ -49,17 +49,24 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   color: #ec407a !important;
 }
 
+.list_container {
+  padding-bottom: 30px;
+}
+
 .list_screen_title {
   width: 50%;
+  padding-top: 25px !important;
+  padding-bottom: 10px !important;
 }
 
 .list_input {
- padding-left: 30px;
- padding-right: 30px;
+ padding-left: 35.25px;
+ padding-right: 35.25px;
 }
 
 .list_screen_header {
   padding-top: 15px;
+  padding-left: 24px;
 }
 
 .delete_list_modal{
@@ -85,7 +92,8 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
 .card_headers {
-  padding: 24px;
+  padding: 10px 24px !important;
+  margin: 0px;
 }
 
 .fixed-action-btn {
@@ -94,4 +102,21 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   top: 5px !important;
   right: 0px !important;
   bottom: 0px !important;
+}
+
+.item_screen_buttons {
+  float: right;
+}
+
+.list_item_add_card {
+  text-align: center;
+}
+
+.item_add_btn {
+  height: 45px;
+  line-height: 45px;
+}
+
+.add_icon {
+  font-size: 2.2rem !important;
 }

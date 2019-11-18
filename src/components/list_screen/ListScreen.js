@@ -165,7 +165,7 @@ class ListScreen extends Component {
         }
 
         return (
-            <div className="container white">
+            <div className="list_container container white">
                 <div className="list_screen_header row">
                     <div className="list_screen_title grey-text text-darken-3 col">Todo List</div>
 
@@ -201,8 +201,8 @@ class ListScreen extends Component {
                     <div className="col s3"><span className="clickable_sort" onClick={this.sortCompleted}>Status</span></div>
                 </div>
                 <ItemsList todoList={todoList} />
-                <div className="card-content grey-text text-darken-3">
-                    <div className="list_item_add_card waves-effect waves-light btn" onClick={this.addItem}><i className="material-icons">add_circle_outline</i></div>
+                <div className="list_item_add_card card-content grey-text text-darken-3">
+                    <div className="item_add_btn waves-effect waves-light btn" onClick={this.addItem}><i className="add_icon material-icons">add_circle_outline</i></div>
                 </div>
 
             </div>
