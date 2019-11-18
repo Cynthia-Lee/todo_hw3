@@ -39,8 +39,8 @@ class ListScreen extends Component {
 
     addItem = () => {
         var itemList = this.props.todoList.items;
-        var itemKey = itemList.length;
-        this.props.history.push('/todolist/' + this.props.todoList.id + '/' + itemKey); // go to new item screen
+        // var itemKey = this.createItemKey();
+        this.props.history.push('/todolist/' + this.props.todoList.id + '/' + itemList.length); // go to new item screen
         /*
         const fireStore = getFirestore();
         var itemList = this.props.todoList.items;
@@ -125,6 +125,7 @@ class ListScreen extends Component {
     }
 
     sortDescription = () => {
+        /*
         console.log("before " + this.state.currentItemSortCriteria);
         var itemList = this.props.todoList.items;
         const fireStore = getFirestore();
@@ -145,6 +146,7 @@ class ListScreen extends Component {
         fireStore.collection('todoLists').doc(this.props.todoList.id).update({
             items: itemList,
         });
+        */
     }
 
     render() {

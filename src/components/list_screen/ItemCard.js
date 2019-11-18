@@ -1,7 +1,13 @@
 import React from 'react';
-import { Button } from 'react-materialize';
+import { Icon, Button } from 'react-materialize';
 
 class ItemCard extends React.Component {
+
+    deleteItem = () => {
+        const { item } = this.props;
+        
+    }
+
     render() {
         const { item } = this.props;
         if (item.completed) {
@@ -23,10 +29,11 @@ class ItemCard extends React.Component {
                                 fab={{ direction: 'left' }}
                                 className="red"
                                 large
+                                icon={<Icon>more_horiz</Icon>}
                             >
-                                <Button floating icon={"1"} className="yellow darken-1" />
-                                <Button floating icon={"2"} className="green" />
-                                <Button floating icon={"3"} className="blue" />
+                                <Button floating icon={<Icon>delete</Icon>} onClick={this.deleteItem} className="yellow darken-1" />
+                                <Button floating icon={<Icon>arrow_downward</Icon>} className="green" />
+                                <Button floating icon={<Icon>arrow_upward</Icon>} className="blue" />
                             </Button>
                         </div>
 
@@ -52,10 +59,11 @@ class ItemCard extends React.Component {
                                 fab={{ direction: 'left' }}
                                 className="red"
                                 large
+                                icon={<Icon>more_horiz</Icon>}
                             >
-                                <Button floating icon={"1"} className="yellow darken-1" />
-                                <Button floating icon={"2"} className="green" />
-                                <Button floating icon={"3"} className="blue" />
+                                <Button floating icon={<Icon>delete</Icon>} onClick={this.deleteItem} className="yellow darken-1" />
+                                <Button floating icon={<Icon>arrow_downward</Icon>} className="green" />
+                                <Button floating icon={<Icon>arrow_upward</Icon>} className="blue" />
                             </Button>
                         </div>
 

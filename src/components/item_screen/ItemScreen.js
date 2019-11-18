@@ -45,6 +45,11 @@ class ItemScreen extends Component {
         const { item } = this.props;
         var itemList = this.props.todoList.items;
 
+        if(item.key == undefined) {
+            // item.key = this.createItemKey();
+            item.key = item.id; // key
+        }
+
         item.description = this.state.description;
         item.assigned_to = this.state.assigned_to;
         item.due_date = this.state.due_date;
@@ -116,7 +121,6 @@ const mapStateToProps = (state, ownProps) => {
     // console.log(check);
     const item = check == undefined ?
         {
-            "key": todoList.items.length,
             "description": "",
             "due_date": "",
             "assigned_to": "",
