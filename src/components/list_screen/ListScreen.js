@@ -125,7 +125,6 @@ class ListScreen extends Component {
     }
 
     sortDescription = () => {
-        /*
         console.log("before " + this.state.currentItemSortCriteria);
         var itemList = this.props.todoList.items;
         const fireStore = getFirestore();
@@ -135,10 +134,7 @@ class ListScreen extends Component {
         }
         // ALL OTHER CASES SORT BY INCREASING
         else {
-            console.log("not inc..." + this.state.currentItemSortCriteria);
             this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_TASK_INCREASING });
-            console.log("test " + ItemSortCriteria.SORT_BY_TASK_INCREASING);
-            console.log("pls change..." + this.state.currentItemSortCriteria);
         }
         console.log(this.state.currentItemSortCriteria);
         itemList.sort(this.compare);
@@ -146,7 +142,6 @@ class ListScreen extends Component {
         fireStore.collection('todoLists').doc(this.props.todoList.id).update({
             items: itemList,
         });
-        */
     }
 
     render() {

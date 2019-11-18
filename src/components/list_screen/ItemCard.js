@@ -8,8 +8,41 @@ class ItemCard extends React.Component {
         e.preventDefault();
         const { item } = this.props;
         var itemList = this.props.todoList.items;
+        itemList.splice(itemList.indexOf(item),1); // remove item from list
+        // update the store
+        const fireStore = getFirestore();
+        fireStore.collection('todoLists').doc(this.props.todoList.id).update({
+            items: itemList,
+        });
+    }
 
-        itemList.splice(itemList.indexOf(item),1);
+    moveDownItem = e => {
+        e.preventDefault();
+        const { item } = this.props;
+        var itemList = this.props.todoList.items;
+
+        var itemIndex = itemList.indexOf(item);
+        let temp = itemList[itemIndex + 1];
+        itemList[itemIndex + 1] = item;
+        itemList[itemIndex] = temp;
+
+        // update the store
+        const fireStore = getFirestore();
+        fireStore.collection('todoLists').doc(this.props.todoList.id).update({
+            items: itemList,
+        });
+    }
+
+    moveUpItem = e => {
+        e.preventDefault();
+        const { item } = this.props;
+        var itemList = this.props.todoList.items;
+
+        var itemIndex = itemList.indexOf(item);
+        let temp = itemList[itemIndex - 1];
+        itemList[itemIndex - 1] = item;
+        itemList[itemIndex] = temp;
+
         // update the store
         const fireStore = getFirestore();
         fireStore.collection('todoLists').doc(this.props.todoList.id).update({
@@ -41,8 +74,8 @@ class ItemCard extends React.Component {
                                 icon={<Icon>more_horiz</Icon>}
                             >
                                 <Button floating icon={<Icon>delete</Icon>} onClick={this.deleteItem} className="yellow darken-1" />
-                                <Button floating icon={<Icon>arrow_downward</Icon>} className="green" />
-                                <Button floating icon={<Icon>arrow_upward</Icon>} className="blue" />
+                                <Button floating icon={<Icon>arrow_downward</Icon>} onClick={this.moveDownItem} className="green" />
+                                <Button floating icon={<Icon>arrow_upward</Icon>} onClick={this.moveUpItem} className="blue" />
                             </Button>
                         </div>
 
@@ -71,8 +104,8 @@ class ItemCard extends React.Component {
                                 icon={<Icon>more_horiz</Icon>}
                             >
                                 <Button floating icon={<Icon>delete</Icon>} onClick={this.deleteItem} className="yellow darken-1" />
-                                <Button floating icon={<Icon>arrow_downward</Icon>} className="green" />
-                                <Button floating icon={<Icon>arrow_upward</Icon>} className="blue" />
+                                <Button floating icon={<Icon>arrow_downward</Icon>} onClick={this.moveDownItem} className="green" />
+                                <Button floating icon={<Icon>arrow_upward</Icon>} onClick={this.moveUpItem} className="blue" />
                             </Button>
                         </div>
 
